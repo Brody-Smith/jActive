@@ -58,6 +58,7 @@
                         <li class="nav-item"><a class="scrollto" href="#about">About</a></li>
                         <li class="nav-item"><a class="scrollto" href="#features">Features</a></li>
                         <li class="nav-item"><a class="scrollto" href="#docs">Docs</a></li>
+                        <li class="nav-item"><a class="scrollto" href="#examples">Examples</a></li>
                         <li class="nav-item"><a class="scrollto" href="#license">License</a></li>
                     </ul>
                 </div>
@@ -120,19 +121,19 @@
     <section id="docs" class="docs section">
         <div class="container">
             <div class="docs-inner">
-            <h2 class="title text-center">Get Started</h2>            
-            <div class="block">
-                <h3 class="sub-title text-center">HTML</h3>
-                <p>You will need specify data-jactive attributes on anything you want to apply a class to when the criteria is met.</p>
-                <p>As an example let's imagine we want to set an active class for a /settings page, and account for alternatives such as /settings/account or /settings-account.</p>
-                <p>There are currently three different values you can supply in the attributes.</p>
-                <ul class="list-unstyled">
-                    <li><strong>String:</strong> Strictly matches against the string</li>
-                    <li><strong>String (with alternatives):</strong> Matches either options seperated with ||</li>
-                    <li><strong>Regular Expression:</strong> Matches the supplied regex</li>
-                </ul>
-                <div class="code-block">
-                    <pre><code class="language-markup">
+                <h2 class="title text-center">Get Started</h2>
+                <div class="block">
+                    <h3 class="sub-title text-center">HTML</h3>
+                    <p>You will need specify data-jactive attributes on anything you want to apply a class to when the criteria is met.</p>
+                    <p>As an example let's imagine we want to set an active class for a /settings page, and account for alternatives such as /settings/account or /settings-account.</p>
+                    <p>There are currently three different values you can supply in the attributes.</p>
+                    <ul class="list-unstyled">
+                        <li><strong>String:</strong> Strictly matches against the string</li>
+                        <li><strong>String (with alternatives):</strong> Matches either options seperated with ||</li>
+                        <li><strong>Regular Expression:</strong> Matches the supplied regex</li>
+                    </ul>
+                    <div class="code-block">
+                        <pre><code class="language-markup">
     &lt;!-- String --&gt;
     &lt;a data-jactive=&quot;/settings&quot;&gt;Settings&lt;/a&gt;
 
@@ -152,20 +153,20 @@
 
     &lt;!--  jActive Plugin  --&gt;
     &lt;script type=&quot;text/javascript&quot; src=&quot;src/jactive.min.js&quot;&gt;&lt;/script&gt;
-                    </code></pre>
+                        </code></pre>
+                    </div>
                 </div>
-            </div>
             
-            <div class="block">
-                <h3 class="sub-title text-center">JavaScript</h3>
-                <p>After including the jActive plugin call it and specify any options you want to change. jActive will work without any changes to the options specified, they are displayed as a reference to the default values.</p>
-                <ul class="list-unstyled">
-                    <li><strong>Class:</strong> The class that gets applied</li>
-                    <li><strong>Name:</strong> The name of the data attribute you want to use</li>
-                    <li><strong>Match:</strong> What the criteria will be checked against</li>
-                </ul>
-                <div class="code-block">
-                    <pre><code class="language-markup">
+                <div class="block">
+                    <h3 class="sub-title text-center">JavaScript</h3>
+                    <p>After including the jActive plugin call it and specify any options you want to change. jActive will work without any changes to the options specified, they are displayed as a reference to the default values.</p>
+                    <ul class="list-unstyled">
+                        <li><strong>Class:</strong> The class that gets applied</li>
+                        <li><strong>Name:</strong> The name of the data attribute you want to use</li>
+                        <li><strong>Match:</strong> What the criteria will be checked against</li>
+                    </ul>
+                    <div class="code-block">
+                        <pre><code class="language-markup">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(function(){
         $('[data-jactive]').jActive({
@@ -175,15 +176,105 @@
         });
     });
 &lt;/script&gt;
-                    </code></pre>
+                        </code></pre>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-center">
+                        <a class="btn btn-cta-primary" href="https://github.com/Brody-Smith/jActive/blob/master/src/jactive.js" target="_blank">Source on GitHub</a>
+                    </p>
                 </div>
             </div>
-            <div>
-                <p class="text-center">
-                    <a class="btn btn-cta-primary" href="https://github.com/Brody-Smith/jActive/blob/master/src/jactive.js" target="_blank">Source on GitHub</a>
-                </p>
-            </div>
-            
+        </div>
+    </section>
+
+    <!-- EXAMPLES -->
+    <section id="examples" class="examples docs section">
+        <div class="container">
+            <div class="docs-inner">
+                <h2 class="title text-center">Examples</h2>
+
+                <div class="block">
+                    <h3 class="sub-title text-center">Custom Data Attribute</h3>
+                    <p>If you would to change the data attribute from "jactive" to something else, simply specify the name of the attribute you would like to use when calling jActive.</p>
+                    <div class="code-block">
+                        <pre><code class="language-javascript">
+    $('[data-custom-name]').jActive({
+        name : 'custom-name'
+    });
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <h3 class="sub-title text-center">Custom Match Criteria</h3>
+                    <p>It is quite easy to define a custom criteria to be checked against, simply change the <strong>match</strong> option to what you would like each data-jactive element to be checked against. By default this option is set to <strong>window.location.pathname</strong>.</p>
+                    <div class="code-block">
+                        <pre><code class="language-javascript">
+    // Add a class based on host
+    $('[data-check-host]').jActive({
+        match : window.location.host
+    });
+
+    // Add a class if data-jactive is eqaul to a string
+    $('[data-check-host]').jActive({
+        match : 'text-to-check-against'
+    });
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <h3 class="sub-title text-center">Regular Expressions</h3>
+                    <p>In order for jActive to determine if it's a stirng or regex, it requires the regex to start with <strong>/^</strong> and end with <strong>$/</strong>. Please note that flags such <strong>i</strong>, <strong>g</strong> and <strong>m</strong> aren't supported.</p>
+                    <div class="code-block">
+                        <pre><code class="language-markup">
+    &lt;!-- The below matches any URI that begins with /action --&gt;
+    &lt;li data-jactive=&quot;/^\/action(\/[\s\S]+)?$/&quot;&gt;&lt;a href=&quot;#&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <h3 class="sub-title text-center">URI Check</h3>
+                    <p>This is what jActive is setup for out of the box.</p>
+                    <div class="code-block">
+<pre><code class="language-markup">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Your Awesome Website!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div id=&quot;navbar&quot; class=&quot;navbar-collapse collapse&quot;&gt;
+        &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+            &lt;li data-jactive=&quot;/ || /home&quot;&gt;&lt;a href=&quot;/home&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li data-jactive=&quot;/about&quot;&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+            &lt;li data-jactive=&quot;/contact&quot;&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&quot;dropdown&quot;&gt;
+                &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;Dropdown&lt;/a&gt;
+                &lt;ul class=&quot;dropdown-menu&quot;&gt;
+                    &lt;li data-jactive=&quot;/action&quot;&gt;&lt;a href=&quot;/action&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;
+                    &lt;li data-jactive=&quot;/another-action&quot;&gt;&lt;a href=&quot;/another-action&quot;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;section&gt;
+        Hello World!
+    &lt;/section&gt;
+
+    &lt;!--  jQuery 1.7+  --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;!--  jActive Plugin  --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;src/jactive.min.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

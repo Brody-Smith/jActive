@@ -2,6 +2,9 @@
 @import "theme-default.less";
 
 /* ======= Base ======= */
+* {
+  outline: none !important;
+}
 
 body {
   font-family: 'Lato', arial, sans-serif;
@@ -104,6 +107,7 @@ pre code {
     .logo {
       a {
         color: @color;
+        text-decoration: none;
       }
     }
     .main-nav .nav .nav-item a {
@@ -117,6 +121,7 @@ pre code {
     padding-top: 10px;
     a {
       color:#fff;
+      text-decoration: none;
       &:hover {
         text-decoration: none;
       }

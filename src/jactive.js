@@ -1,18 +1,19 @@
 /**
-   _                         _
-  (_)       /\          _   (_)
-   _       /  \    ___ | |_  _ __   __ ___
-  | |     / /\ \  / __|| __|| |\ \ / // _ \
-  | | _  / ____ \| (__ | |_ | | \ V /|  __/
-  | |(_)/_/    \_\\___| \__||_|  \_/  \___|
+   _                      _
+  (_)    /\          _   (_)
+   _    /  \    ___ | |_  _ __   __ ___
+  | |  / /\ \  / __|| __|| |\ \ / // _ \
+  | | / ____ \| (__ | |_ | | \ V /|  __/
+  | |/_/    \_\\___| \__||_|  \_/  \___|
  _/ |
 |__/
 
  *
  * @author Brody Smith
- * @version 0.5
+ * @version 0.6
  * @license GNU General Public License v2.0
  * @description jActive is a simple, yet flexible jquery plugin for applying a class based on the specified criteria.
+ * @documentation http://brody-smith.github.io/jActive
  */
 ;(function($, window){
     $.jActive = function(el, options){
@@ -32,6 +33,7 @@
             base.options = $.extend({
                 regex: {
                     getRegex  : /\/\^[\s\S]+\$\//,
+                    getAttr   : /(?:\$\(([\s\S]+)\))(?:[\s]?\|[\s]?)([\S]+)/,
                     getString : /(\S+)(?:[\s]?[\|\|]{2}[\s]?)(\S+)?/
                 }
             }, $.jActive.defaultOptions, options);
@@ -40,28 +42,38 @@
         };
 
         // Apply the class specified via options
-        base._applyClass = function($el){
-            $el.addClass(base.options.class);
+        base._applyClass = function() {
+            base.$el.addClass(base.options.class);
+        };
+
+        // Test against the specified attribute
+        base._testAttr = function(attr) {
+            var t = attr[1].slice(1, -1),
+                n = attr[2];
+
+            if ($(t, base.el).attr(n) === base.options.match) {
+                base._applyClass();
+            }
         };
 
         // Test against the required match using the supplied regex
-        base._testRegex = function($el, regex) {
+        base._testRegex = function(regex) {
             // remove slashes at start and end of supplied regex
             regex = new RegExp(regex.slice(1, -1));
 
             if (regex.test(base.options.match)) {
-                base._applyClass($el);
+                base._applyClass();
             }
         };
 
         // Get all possible matches provided and run checks
-        base._testString = function($el, string) {
+        base._testString = function(string) {
             var matches = base.options.regex.getString.exec(string);
                 matches.splice(0, 1);
 
             $.each(matches, function(i, v){
                 if (v === base.options.match) {
-                    base._applyClass($el);
+                    base._applyClass();
                     return false;
                 }
             });
@@ -69,16 +81,18 @@
 
         base._runChecks = function() {
             var value = base.$el.data(base.options.name),
-                regex = base.options.regex.getRegex.test(value);
+                regex = base.options.regex.getRegex.test(value),
+                attr  = base.options.regex.getAttr.exec(value);
 
             if (regex) {
-                base._testRegex(base.$el, value);
+                base._testRegex(value);
+            } else if (attr) {
+                base._testAttr(attr);
             } else {
-                base._testString(base.$el, value);
+                base._testString(value);
             }
         };
 
-        // Run initializer
         base.init();
     };
 

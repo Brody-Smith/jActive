@@ -131,6 +131,7 @@
                         <li><strong>String:</strong> Strictly matches against the string</li>
                         <li><strong>String (with alternatives):</strong> Matches either options seperated with ||</li>
                         <li><strong>Regular Expression:</strong> Matches the supplied regex</li>
+                        <li><strong>Attribute Match:</strong> Finds the specified element, and grabs the specified attributes value</li>
                     </ul>
                     <div class="code-block">
                         <pre><code class="language-markup">
@@ -142,6 +143,9 @@
 
     &lt;!-- Regular Expression --&gt;
     &lt;a data-jactive=&quot;/^\/settings(\/[\s\S]+)?$/&quot;&gt;Settings&lt;/a&gt;
+
+    &lt;!-- Attribute Match --&gt;
+    &lt;a data-jactive=&quot;$('> a')|href&quot;&gt;Settings&lt;/a&gt;
                      </code></pre>
                 </div>
                 <br>
@@ -230,7 +234,26 @@
                     <div class="code-block">
                         <pre><code class="language-markup">
     &lt;!-- The below matches any URI that begins with /action --&gt;
-    &lt;li data-jactive=&quot;/^\/action(\/[\s\S]+)?$/&quot;&gt;&lt;a href=&quot;#&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;
+    &lt;li data-jactive=&quot;/^\/action(\/[\s\S]+)?$/&quot;&gt;&lt;a href=&quot;/active&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="block">
+                    <h3 class="sub-title text-center">Attribute Match</h3>
+                    <p>Attribute match is a handy feature where jActive is able to use the value of an elements attribute when executing it checks. This saves you having to specify the value it needs to eqaul multiple times.</p>
+                    <p>When selecting an element to use, keep in mind that jActive looks based on the context of the element that data-jactive is applied to. For example, the below with loosely tranlate to <strong>$('> a', this)</strong> where <strong>this</strong> is the element data-jactive is applied to.</p>
+                    <div class="code-block">
+                        <pre><code class="language-markup">
+    &lt;!-- Matches /action as its the value of the anchors href --&gt;
+    &lt;li data-jactive=&quot;$('> a')|href&quot;&gt;
+        &lt;a href=&quot;/action&quot;&gt;Action&lt;/a&gt;
+    &lt;/li&gt;
+
+    &lt;!-- Matches action as its the value of the anchors custom ui-sref attribute --&gt;
+    &lt;li data-jactive=&quot;$('> a')|ui-sref&quot;&gt;
+        &lt;a ui-sref=&quot;action&quot;&gt;Action&lt;/a&gt;
+    &lt;/li&gt;
                         </code></pre>
                     </div>
                 </div>
